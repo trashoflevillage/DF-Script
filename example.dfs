@@ -1,0 +1,22 @@
+playerJoin @ PlayerJoinEvent { # This is a process that is subscribed to an event. It will run whenever PlayerJoinEvent is triggered.
+    select ALL;
+    Player.sendMessage("%default has joined the game!");
+    processName(copy, none); # Calls the process "processName" while copying the local variables and no selections.
+}
+
+functionName() { # If there was no parenthesis, this would be a process instead.
+    Player.sendMessage("This function has been called!");
+    functionWithParameters(5);
+    repeatOnGrid(selected, loc(0,0,0), loc(50,255,50)) { # Locations are specified with loc(x,y,z,p,y). Pitch and yaw are implied.
+        Game.setBlock(air,selected) # This is a game action, so it uses Game instead of Player.
+    }
+}
+
+processName {
+    functionName(); # Calls the function "functionName".
+}
+
+functionWithParameters(parameterName) { # The variable named "number" is incremented by the function's parameter named "parameterName".
+    number += parameterName; # If not specified, a variable is a game variable by default.
+    local message = "Hello %default!"; # however, if you specify local or save, it will be one of those variable types instead. You can also specify game variables, but this isn't necessary.
+}
